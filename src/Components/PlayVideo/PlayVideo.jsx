@@ -8,7 +8,7 @@ import share from '../../assets/share.png'
 import save from '../../assets/save.png'
 import jack from '../../assets/jack.png'
 import user_profile from '../../assets/user_profile.jpg'
-import { API_KEY } from '../../data'
+import { API_KEY, BASE_URL } from '../../config'; 
 import { value_converter } from '../../data';
 import moment from 'moment';
 import { Link, useParams } from 'react-router-dom'
@@ -23,16 +23,19 @@ const PlayVideo = () => {
 
    const fetchVideoData = async () => {
        //Fetching videos data
-       const videoDetails_url=`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY} `;
+       const videoDetails_url = 
+        `${BASE_URL}/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`;
        await fetch (videoDetails_url).then(res => res.json()).then(data => setApiData(data.items[0]))
    }
    const fetchOtherData = async () => {
        //Fetching channel data
-       const channelData_url=`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY} `;
-       await fetch (channelData_url).then(res => res.json()).then(data => setChannelData(data.items[0]))
+       const channelData_url = 
+           `${BASE_URL}/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
+         await fetch (channelData_url).then(res => res.json()).then(data => setChannelData(data.items[0]))
 
        //Fetching comment data
-       const commentData_url=`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Cid&videoId=${videoId}&key=${API_KEY} `;
+       const commentData_url = 
+          `${BASE_URL}/commentThreads?part=snippet%2Cid&videoId=${videoId}&key=${API_KEY}`;
        await fetch (commentData_url).then(res => res.json()).then(data => setCommentData(data.items))
    }
 

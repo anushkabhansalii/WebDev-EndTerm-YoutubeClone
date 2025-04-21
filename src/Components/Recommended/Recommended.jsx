@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import './Recommended.css'
-import { API_KEY } from '../../data'
+import { API_KEY, BASE_URL } from '../../config';
 import { value_converter } from '../../data';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const Recommended = ({categoryId}) => {
 
    const[apiData,setApiData] = useState([]);
    const fetchData = async () => {
-      const relatedVideos_url=`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US&videoCategoryId=${categoryId}&maxResults=50&key=${API_KEY} `
+      const relatedVideos_url=`${BASE_URL}/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US&videoCategoryId=${categoryId}&maxResults=50&key=${API_KEY} `
       await fetch(relatedVideos_url).then(res => res.json()).then(data => setApiData(data.items))
    }
    useEffect(() => {

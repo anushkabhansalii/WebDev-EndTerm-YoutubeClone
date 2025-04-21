@@ -1,7 +1,4 @@
-export const API_KEY = import.meta.env.VITE_API_KEY;
-
-
- export const value_converter = (value) => {
+export const value_converter = (value) => {
    if(value>=1000000){
     return `${(value/1000000).toFixed(1)}M`
    }
